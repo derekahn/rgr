@@ -1,5 +1,7 @@
 import express from 'express';
 import logger from 'morgan';
+
+import router from './router';
 import db from './db';
 
 const app = express();
@@ -7,6 +9,8 @@ const port = 3000;
 
 app.use(logger('dev'))
 app.use(express.static('public'))
+app.use(router);
+
 const mongoURL = 'mongodb://localhost:27017/links';
 db.connect(mongoURL, (err) => {
   if (err) {
