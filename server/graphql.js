@@ -1,28 +1,41 @@
 import connect from 'express-graphql'; // GraphQLHTTP
+
 import {
-  GraphQLSchema as gSchema,
-  GraphQLObjectType as gObject,
-  GraphQLInt as gInt,
-  GraphQLString as gString,
+  GraphQLSchema as Gschema,
+
+  // reference
+  GraphQLObjectType as Gobject,
+  GraphQLList as Glist,
+
+  // primitive
+  GraphQLString as Gstring,
+  // GraphQLInt as Gint,
 } from 'graphql';
 
-const schema = new gSchema({
-  query: new gObject({
-    name: 'Query',
+export default db => {
+  const linkType = new Gobject({
+    name: 'Link',
     fields: () => ({
-      counter: {
-        type: gInt,
-        resolve: () => 42,
-      },
-      message: {
-        type: gString,
-        resolve: () => 'Hello GraphQL!',
-      },
+      _id: { type: Gstring },
+      title: { type: Gstring },
+      url: { type: Gstring },
     }),
-  }),
-});
+  });
 
-export default connect({
-  schema,
-  graphiql: true,
-});
+  const schema = new Gschema({
+    query: new Gobject({
+      name: 'Query',
+      fields: () => ({
+        links: {
+          type: new Glist(linkType),
+          resolve: () => db.collection('links').find({}).toArray(),
+        },
+      }),
+    }),
+  });
+
+  return connect({
+    schema,
+    graphiql: true,
+  });
+};

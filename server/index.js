@@ -8,7 +8,6 @@ const app = express();
 const port = 3000;
 
 app.use(express.static('public'));
-app.use('/graphql', graphQL);
 app.use(logger('dev'));
 
 const mongoURL = 'mongodb://localhost:27017/links';
@@ -18,6 +17,7 @@ db.connect(mongoURL, (err, database) => {
     process.exit(1);
   }
 
+  app.use('/graphql', graphQL(database));
   app.listen(port, () => {
     console.info(`Listening on... port ${port}`);
   });
