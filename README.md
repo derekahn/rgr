@@ -9,6 +9,28 @@ $ yarn install
 
 # NO YARN? 😢🐼! Alternative
 $ npm i --no-progresss
+
+# Start mongoDB
+$ mongod
+
+# Setup mongoDB
+$ mongo
+  > use links
+  switched to db links
+  > db.links.insert([{
+     "title": "React.js Main Website",
+     "url": "https://facebook.github.io/react/"
+   }, {
+     "title": "Relay.js Main Website",
+     "url": "https://facebook.github.io/relay/"
+   }, {
+     "title": "GraphQL Main Website",
+     "url": "https://facebook.github.io/graphql/"
+   }, {
+     "title": "GraphQL Org",
+     "url": "http://graphql.org"
+   }])
+  WriteResult({ "nInserted": 4 })
 ```
 
 ### Run
@@ -19,27 +41,29 @@ $ npm start
 # Runs webpack watch in dev mode
 $ npm run webpack
 ```
+### GraphQL Goodness 😮
+[graphiQL](http://localhost:3000/graphql)
 
 ### Architecture
 ```sh
 ├── README.md
-├── client                  * Front-end Application
-│   ├── components          * React Views
+├── client                * Front-end Application
+│   ├── components        * React Views
 │   │   └── Main.jsx
-│   ├── index.jsx           * Mount React
-│   └── store               * Flux things
+│   ├── index.jsx
+│   └── store             * Flux things
 │       ├── actions.js
 │       ├── constants.js
 │       ├── disptacher.js
 │       └── index.js
 ├── package.json
-├── public                  * Webpack Bundle Output
+├── public                * Webpack Bundle Output
 │   ├── bundle.js
 │   └── index.html
-├── server                  * API server
+├── server                * API server
 │   ├── db.js
-│   ├── index.js
-│   └── router.js
+│   ├── graphql.js
+│   └── index.js
 ├── webpack.config.js
 └── yarn.lock
 ```
