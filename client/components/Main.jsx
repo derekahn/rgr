@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {post} from 'axios';
 
 import action from 'store/actions';
@@ -7,7 +7,16 @@ import store from 'store';
 
 const getState = () => ({ links: store.getAll() });
 
+const {number} = PropTypes;
 export default class Main extends Component {
+  static propTypes = {
+    limit: number
+  }
+
+  static defaultProps = {
+    limit: 4
+  }
+
   constructor(props) {
     super(props)
     this.state = getState();
