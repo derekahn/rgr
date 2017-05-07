@@ -3,11 +3,15 @@ const path = require('path');
 module.exports = {
   entry: './client/index',
   output: {
-    path: path.resolve(__dirname, './public'),
+    path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
   },
   resolve: {
+    modules: [path.resolve(__dirname, 'client'), 'node_modules'],
     extensions: ['.js', '.jsx'],
+    alias: {
+      components: path.resolve('client/components'),
+    },
   },
   module: {
     loaders: [
