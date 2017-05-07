@@ -10,15 +10,12 @@ const port = 3000;
 app.use(express.static('public'));
 app.use(logger('dev'));
 
-const mongoURL = 'mongodb://localhost:27017/links';
-db.connect(mongoURL, (err, database) => {
-  if (err) {
-    console.warn('Unable to connect to Mongo', err);
-    process.exit(1);
-  }
+(async () => {
+  const mongoURL = 'mongodb://localhost:27017/links';
+  const database = await db.connect(mongoURL);
 
   app.use('/graphql', graphQL(database));
   app.listen(port, () => {
     console.info(`Listening on... port ${port}`);
   });
-});
+})();
