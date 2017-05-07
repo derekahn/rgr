@@ -11,6 +11,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       components: path.resolve('client/components'),
+      store: path.resolve('client/store'),
     },
   },
   module: {
