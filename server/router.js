@@ -12,7 +12,7 @@ router.get('/data/links', (req, res) => {
     if (err) {
       throw err;
     }
-    res.send(links);
+    res.json(links);
   });
 });
 
