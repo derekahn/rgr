@@ -51,7 +51,7 @@ export default class Main extends Component {
       <div>
         <h3>Links</h3>
         <ul>
-          {this.state.links.map(link =>
+          {this.state.links.slice(0, this.props.limit).map(link =>
             <li key={link._id}>
               <a href={link.url}>{link.title}</a>
             </li>
