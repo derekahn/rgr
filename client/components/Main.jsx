@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {get} from 'axios';
+import {post} from 'axios';
 
 import action from 'store/actions';
 import store from 'store';
@@ -15,9 +15,20 @@ export default class Main extends Component {
     this.onChange = this.onChange.bind(this);
   }
   componentDidMount() {
-    get('/data/links').then(({data}) => {
-      action.receiveLinks(data);
+    const request = {
+      query: `{
+        links {
+          _id,
+          title,
+          url
+        }
+      }`
+    };
+
+    post('/graphql', request).then(({data: { data: {links} }}) => {
+      action.receiveLinks(links);
     });
+
     store.on('change', this.onChange)
   }
   onChange() {
