@@ -1,4 +1,4 @@
-import {MongoClient} from 'mongodb';
+import { MongoClient } from 'mongodb';
 
 export default {
   db: null,
@@ -13,22 +13,22 @@ export default {
       }
 
       this.db = db;
-      done();
+      done(err, db);
     });
   },
   terminate(done) {
     if (this.db) {
       this.db.close((err, result) => {
         if (err) {
-          done(err)
+          done(err);
         }
 
         this.db = null;
-        done(result);
-      })
+        done(err, result);
+      });
     }
   },
   get() {
     return this.db;
-  }
-}
+  },
+};
